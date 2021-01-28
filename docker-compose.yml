@@ -18,7 +18,7 @@ services:
     build: ../${NAME_FE}
     image: bnweb
     depends_on:
-      - gobe
+      - bngobe
     volumes:
       - ../${NAME_FE}:/app
       - /app/node_modules
