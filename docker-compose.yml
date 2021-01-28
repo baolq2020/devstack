@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
 
-  web:
+  bnweb:
     container_name: "bn.web"
     build: ../${NAME_FE}
     image: bnweb
@@ -24,7 +24,7 @@ services:
       - /app/node_modules
     ports:
       - "3000:3000"
-  gobe:
+  bngobe:
     container_name: "bn.be"
     build: ../${NAME_BE}
     image: bngobe
@@ -73,7 +73,7 @@ services:
     depends_on:
       - zookeeper
 
-  worker:
+  bnworker:
     container_name: "bn.worker"
     build: ../${NAME_WORKER}
     image: bnworker
