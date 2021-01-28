@@ -12,6 +12,7 @@ _clone ()
 {
 
     repos_to_clone=("$@")
+    cd ../
     for repo in "${repos_to_clone[@]}"
     do
         # Use Bash's regex match operator to capture the name of the repo.
@@ -20,7 +21,6 @@ _clone ()
 
         # If a directory exists and it is nonempty, assume the repo has been checked out
         # and only make sure it's on the required branch
-        cd ../
         git clone "${repo}"
     done
 }
