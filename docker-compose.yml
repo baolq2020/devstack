@@ -1,0 +1,91 @@
+# Use postgres/example user/password credentials
+version: '3.7'
+services:
+  postgres:
+    container_name: "bn.postgres"
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  web:
+    container_name: "bn.web"
+    build: ../${NAME_FE}
+    image: bnweb
+    depends_on:
+      - gobe
+    volumes:
+      - ../${NAME_FE}:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+  gobe:
+    container_name: "bn.be"
+    build: ../${NAME_BE}
+    image: bngobe
+    depends_on:
+      - postgres
+    volumes:
+      - ../${NAME_BE}:/app
+    ports:
+      - "8080:8080"
+
+  kafdrop:
+    container_name: "bn.kafdrop"
+    image: obsidiandynamics/kafdrop
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:19091"
+    depends_on:
+      - kafka
+  zookeeper:
+    container_name: "bn.zookeeper"
+    image: zookeeper:3.4.9
+    hostname: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_PORT: 2181
+      ZOO_SERVERS: server.1=zookeeper:2888:3888
+    volumes:
+      - zookeeper:/data
+
+  kafka:
+    container_name: "bn.kafka"
+    image: confluentinc/cp-kafka:5.5.1
+    hostname: kafka
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:19091,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9091
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - kafka:/var/lib/kafka/data
+    depends_on:
+      - zookeeper
+
+  worker:
+    container_name: "bn.worker"
+    build: ../${NAME_WORKER}
+    image: bnworker
+    volumes:
+      - ../${NAME_WORKER}:/app
+      - /app/node_modules
+    ports:
+      - "8081:8081"
+    depends_on:
+      - "kafka"
+volumes:
+  postgres:
+  zookeeper:
+  kafka:
+
