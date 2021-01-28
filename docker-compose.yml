@@ -56,6 +56,7 @@ services:
       ZOO_SERVERS: server.1=zookeeper:2888:3888
     volumes:
       - zookeeper:/data
+      - zookeeper_log:datalog
 
   kafka:
     container_name: "bn.kafka"
@@ -87,5 +88,6 @@ services:
 volumes:
   postgres:
   zookeeper:
+  zookeeper_log:
   kafka:
 
