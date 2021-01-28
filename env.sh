@@ -7,8 +7,9 @@ _check_devstack(){
     if [ -e .env ]
     then
         echo "env file devstack is exist!"
+        cp .env.example .env
     else
-        echo "env file devstack is not exist! This env file will be created from .env.example!"
+        echo "env file devstack is not exist! Copy from env.example"
         cp .env.example .env
     fi
     _load_dotenv
@@ -19,9 +20,9 @@ _check_web(){
     if [ -e .env ]
     then
         echo "env file web is exist!"
+        cp .env.example .env
     else
-        echo "env file web is not exist! This env file will be created from .env.example!"
-        pwd
+        echo "env file web is not exist! Copy from env.example"
         cp .env.example .env
     fi
 }
@@ -31,9 +32,9 @@ _check_gobe(){
     if [ -e .env ]
     then
         echo "env file gobe is exist!"
+        cp .env.example .env
     else
-        echo "env file gobe is not exist! This env file will be created from .env.example!"
-        pwd
+        echo "env file gobe is not exist! Copy from env.example"
         cp .env.example .env
     fi
 }
@@ -43,9 +44,9 @@ _check_worker(){
     if [ -e .env ]
     then
         echo "env file worker is exist!"
+        cp .env.example .env
     else
-        echo "env file worker is not exist! This env file will be created from .env.example!"
-        pwd
+        echo "env file worker is not exist! Copy from env.example"
         cp .env.example .env
     fi
 }
