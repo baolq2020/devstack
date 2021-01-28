@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 _load_dotenv(){
     export $(cat .env | xargs)
 }

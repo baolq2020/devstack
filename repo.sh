@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 repos=(
     "https://github.com/baolq2020/bnworker.git"
     "https://github.com/baolq2020/bnweb.git"
