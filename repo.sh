@@ -1,8 +1,8 @@
 
 repos=(
-    "https://gitlab.com/b9aiteam/worker.git"
-    "https://gitlab.com/b9aiteam/reactjsdemo1.git"
-    "https://gitlab.com/b9aiteam/go-api.git"
+    "https://github.com/baolq2020/bnworker.git"
+    "https://github.com/baolq2020/bnweb.git"
+    "https://github.com/baolq2020/bngobe.git"
 )
 
 # shellcheck disable=SC2034
