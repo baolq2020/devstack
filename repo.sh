@@ -3,6 +3,7 @@ repos=(
     "https://github.com/baolq2020/bnworker.git"
     "https://github.com/baolq2020/bnweb.git"
     "https://github.com/baolq2020/bngobe.git"
+    "https://github.com/baolq2020/bnfacedetect.git"
 )
 
 # shellcheck disable=SC2034
