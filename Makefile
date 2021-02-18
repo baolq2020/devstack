@@ -8,6 +8,9 @@ dev.init: dev.env.check
 dev.env.%:
 	./env.sh $*
 
+dev.up.build:
+	docker-compose up --build -d
+
 dev.shell.%: ## Run a shell on the specified service's container.
 	docker-compose exec $* /bin/bash
 dev.up: env.check-memory ## Bring up services and their dependencies.
@@ -21,7 +24,7 @@ dev.stop.%: ## Stop all running services.
 dev.down: ## Stop and remove containers and networks for all services.
 	docker-compose down
 dev.logs: ## View logs from running containers.
-	docker-compose logs -f
+	docker-compose logs -f --tail=500
 dev.logs.%: ## View the logs of the specified service container.
 	docker-compose logs -f --tail=500 $*
 dev.ps: ## View list of created services and their statuses.
