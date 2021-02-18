@@ -8,8 +8,10 @@ dev.init: dev.env.check
 dev.env.%:
 	./env.sh $*
 
-dev.up.build:
+dev.build: env.check-memory
 	docker-compose up --build -d
+dev.build.%: env.check-memory
+	docker-compose up --build -d $*
 
 dev.shell.%: ## Run a shell on the specified service's container.
 	docker-compose exec $* /bin/bash
